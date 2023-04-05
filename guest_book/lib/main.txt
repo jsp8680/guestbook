@@ -1,0 +1,188 @@
+import 'package:flutter/material.dart';
+import 'package:guest_book/route/route.dart' as route;
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const FlutterLogo(size: 54), actions: <Widget>[
+        IconButton(
+            icon: const Icon(Icons.add_alert),
+            tooltip: 'Successfully Shown Snackbar',
+            onPressed: () => {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Successfully Shown Snackbar')))
+                }),
+        const IconButton(onPressed: null, icon: Icon(Icons.info)),
+      ]),
+      body: Column(
+        children: [
+          CarouselSlider(
+            options: CarouselOptions(height: 300.0),
+            items: [
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 15,
+                          blurRadius: 17,
+                          offset: const Offset(0, 7),
+                        ),
+                      ],
+                      image: const DecorationImage(
+                          image: AssetImage('assets/images/download.png'),
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          'When you get here you understand',
+                          textStyle: const TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.yellow,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          speed: const Duration(milliseconds: 200),
+                        ),
+                      ],
+                      totalRepeatCount: 4,
+                      pause: const Duration(milliseconds: 1000),
+                      displayFullTextOnTap: true,
+                      stopPauseOnTap: false,
+                    )
+                  ]),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/software.jpg'),
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/business.jpg'),
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/nursing.jpg'),
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/engineer.jpg'),
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.red,
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          ElevatedButton(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Icon(Icons.home, size: 36),
+                    Padding(
+                      padding: EdgeInsets.only(right: 64),
+                      child: Text(
+                        'Home Page',
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                  ),
+                  onPressed: () => Navigator.pushNamed(context, route.home),
+                  ),
+                   ElevatedButton(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Icon(Icons.contact_page, size: 36),
+                    Padding(
+                      padding: EdgeInsets.only(right: 64),
+                      child: Text(
+                        'Contact Us',
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                  ),
+                  onPressed: () => Navigator.pushNamed(context, route.contactUs),
+                  ),
+                   ElevatedButton(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Icon(Icons.pages_rounded, size: 36),
+                    Padding(
+                      padding: EdgeInsets.only(right: 64),
+                      child: Text(
+                        'About Us',
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                  ),
+                  onPressed: () => Navigator.pushNamed(context, route.aboutUs),
+                  ),
+             
+                      ]),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.edit), onPressed: () {
+          showDialog(context: context,
+          builder: (BuildContext context){
+            return AlertDialog(
+              scrollable: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Icon(Icons.edit,size:45),
+                  Text('Leave a Message'),
+                ],
+              ),
+              content: const Text('Edit the content'),
+              actions: [
+                TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+                TextButton(onPressed: () => Navigator.pop(context), child: const Text('Save')),
+              ],
+            );
+          
+          });
+        },
+      ),
+    );
+  }
+}
